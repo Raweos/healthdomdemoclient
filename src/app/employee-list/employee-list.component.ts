@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {EmployeeService} from '../employee.service';
 import {map} from 'rxjs/operators';
 import {Employee} from '../model/employee';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -12,7 +13,7 @@ import {Employee} from '../model/employee';
 export class EmployeeListComponent implements OnInit {
   employees: Observable<Employee[]>;
 
-  constructor(private employeeService: EmployeeService) {
+  constructor(private employeeService: EmployeeService, private router: Router) {
   }
 
   ngOnInit() {
@@ -20,6 +21,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   reloadData() {
+    console.log(this.employeeService.getEmployeesList());
     this.employees = this.employeeService.getEmployeesList().pipe(
       map(response => {
         return response.body.map(
@@ -33,12 +35,13 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.deleteEmployee(id)
       .subscribe(
         data => {
-          console.log(data);
           this.reloadData();
         },
         error => console.log(error));
   }
 
 
-
+  details(id: string) {
+    this.router.navigate(['/details/' + id]);
+  }
 }

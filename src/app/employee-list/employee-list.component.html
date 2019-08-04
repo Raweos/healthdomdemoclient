@@ -9,7 +9,8 @@
         <th>Firstname</th>
         <th>Lastname</th>
         <th>Phone number</th>
-        <th>Actions</th>
+        <th>Delete</th>
+        <th>Details</th>
       </tr>
       </thead>
       <tbody>
@@ -18,6 +19,7 @@
         <td>{{employee.lastName}}</td>
         <td>{{employee.phoneNumber | mask: '(000) 000-0000'}}</td>
         <td><button (click)="deleteEmployee(employee.id)">Delete</button></td>
+        <td><button (click)="details(employee.id)">Edit</button></td>
       </tr>
       </tbody>
     </table>

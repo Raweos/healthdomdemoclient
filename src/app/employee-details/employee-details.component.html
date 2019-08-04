@@ -1,16 +1,36 @@
-<div *ngIf="employee">
-  <div>
-    <label>Name: </label> {{employee.firstName}}
-  </div>
-  <div>
-    <label>Age: </label> {{employee.lastName}}
-  </div>
-  <div>
-    <label>Active: </label> {{employee.phoneNumber}}
-  </div>
-  <div>
-    <label>Active: </label> {{employee.active}}
-  </div>
+<h3>Update Employee</h3>
+<div *ngIf="employee" [hidden]="updated" style="width: 400px;" id="update-employee-container">
+  <form (ngSubmit)="onSubmit()" name="update-employee-form" #employeeForm ="ngForm">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName"
+             required [(ngModel)]="employee.firstName" name="firstName" mask="S*">
+    </div>
 
-  <hr/>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName" required [(ngModel)]="employee.lastName"
+             name="lastName" mask="S*">
+    </div>
+
+    <div class="form-group">
+      <label for="phoneNumber">Phone number</label>
+      <input required class="form-control" type="text" id="phoneNumber" name="phoneNumber" mask='(000) 000-0000'
+             [(ngModel)]="employee.phoneNumber">
+    </div>
+
+    <button id="submit_update_employee" type="submit" class="btn btn-success" [disabled]="!employeeForm.valid">Submit</button>
+  </form>
+</div>
+
+<div id="employee-updated-message-box" [hidden]="!updated" class="mt-2">
+  <div class="alert alert-success" role="alert">
+    Employee updated!
+  </div>
+</div>
+
+<div id="employee-updated-message-box-error" [hidden]="!error" class="mt-2">
+  <div class="alert alert-danger" role="alert">
+    Error occurred!
+  </div>
 </div>

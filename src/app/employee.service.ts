@@ -14,7 +14,7 @@ export class EmployeeService {
   constructor(private http: HttpClient) {
   }
 
-  getEmployee(id: number): Observable<HttpResponse<EmployeeDto>> {
+  getEmployee(id: string): Observable<HttpResponse<EmployeeDto>> {
     return this.http.get<EmployeeDto>(`${this.baseUrl}/${id}`, {observe: 'response'});
   }
 
@@ -22,7 +22,7 @@ export class EmployeeService {
     return this.http.post<EmployeeDto>(`${this.baseUrl}`, employee.employeeDetailsDto, {observe: 'response'});
   }
 
-  updateEmployee(id: number, value: EmployeeDetailsDto): Observable<HttpResponse<EmployeeDto>> {
+  updateEmployee(id: string, value: EmployeeDetailsDto): Observable<HttpResponse<EmployeeDto>> {
     return this.http.put<EmployeeDto>(`${this.baseUrl}/${id}`, value, {observe: 'response'});
   }
 

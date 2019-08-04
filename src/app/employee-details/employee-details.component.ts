@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../employee.service';
-import {EmployeeListComponent} from '../employee-list/employee-list.component';
 import {Employee} from '../model/employee';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-employee-details',
@@ -10,10 +10,28 @@ import {Employee} from '../model/employee';
 })
 export class EmployeeDetailsComponent implements OnInit {
 
-  @Input() employee: Employee;
+  employee: Employee;
+  updated = false;
+  error = false;
 
-  constructor(private employeeService: EmployeeService, private listComponent: EmployeeListComponent) { }
+  constructor(private employeeService: EmployeeService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.employeeService.getEmployee(id)
+      .subscribe(
+        response => this.employee = Employee.fromDto(response.body)
+      );
+  }
+
+  onSubmit() {
+    this.employeeService.updateEmployee(this.employee.id, this.employee.toDto().employeeDetailsDto)
+      .subscribe(data => {
+        if (data.status === 200) {
+          this.updated = true;
+          this.error = false;
+        }
+      }, error => this.error = true);
   }
 }

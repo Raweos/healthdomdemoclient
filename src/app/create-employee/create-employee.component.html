@@ -1,5 +1,5 @@
 <h3>Create Employee</h3>
-<div [hidden]="submitted" style="width: 400px;">
+<div [hidden]="created" style="width: 400px;" id="create-employee-container">
   <form (ngSubmit)="onSubmit()" name="create-employee-form" #employeeForm ="ngForm">
     <div class="form-group">
       <label for="firstName">First Name</label>
@@ -19,10 +19,18 @@
              [(ngModel)]="employee.phoneNumber">
     </div>
 
-    <button type="submit" class="btn btn-success" [disabled]="!employeeForm.valid">Submit</button>
+    <button id="submit_create_employee" type="submit" class="btn btn-success" [disabled]="!employeeForm.valid">Submit</button>
   </form>
 </div>
 
-<div [hidden]="!submitted">
-  <h4>You submitted successfully!</h4>
+<div id="employee-created-message-box" [hidden]="!created" class="mt-2">
+  <div class="alert alert-success" role="alert">
+    Employee created!
+  </div>
+</div>
+
+<div id="employee-created-message-box-error" [hidden]="!error" class="mt-2">
+  <div class="alert alert-danger" role="alert">
+    Error occurred!
+  </div>
 </div>
